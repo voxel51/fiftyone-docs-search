@@ -1,0 +1,2 @@
+[console_scripts]
+fiftyone-docs-search = fiftyone.docs_search.cli:main

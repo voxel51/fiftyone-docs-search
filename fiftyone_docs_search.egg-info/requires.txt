@@ -1,0 +1,9 @@
+argcomplete
+markdownify
+openai
+packaging
+qdrant-client
+regex
+rich
+setuptools
+tqdm
