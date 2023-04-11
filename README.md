@@ -88,7 +88,7 @@ Voxel51 documentation. To use it, run:
 from fiftyone.docs_search import FiftyOneDocsSearch
 
 fods = FiftyOneDocsSearch()
-results = fods.search("how to load a dataset")
+results = fods("how to load a dataset")
 ```
 
 You can set defaults for the search behavior by passing arguments to the
