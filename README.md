@@ -1,6 +1,9 @@
 # fiftyone-docs-search
 Search https://docs.voxel51.com with an LLM!
 
+!['fiftyone-docs-search-cli'](fiftyone/docs_search/images/cli_example.gif)
+
+
 ## Overview
 
 This repo contains the code to enable semantic search on the 
@@ -64,8 +67,6 @@ where `<query>` is the search query. For example:
 fiftyone-docs-search query "how to load a dataset"
 ```
 
-INSERT GIF HERE
-
 The following flags can con give you control over search behavior:
 - `--num_results`: the number of results returned
 - `--open_url`: whether to open the top result in your browser
@@ -80,6 +81,8 @@ fiftyone-docs-search --help
 ```
 
 ### Python
+
+!['fiftyone-docs-search-python'](fiftyone/docs_search/images/python_example.gif)
 
 The `fiftyone-docs-search` package also provides a Python API for searching the
 Voxel51 documentation. To use it, run:
