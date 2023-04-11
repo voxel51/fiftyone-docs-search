@@ -146,3 +146,61 @@ def fiftyone_docs_search(
     if open_url:
         top_url = results[0][0]
         webbrowser.open(top_url)
+
+################################################################
+
+class FiftyOneDocsSearch():
+    """Class for handling FiftyOneDocsSearch queries."""
+    def __init__(
+            self, 
+            top_k = None, 
+            doc_types = None, 
+            block_types = None, 
+            score = False, 
+            open_url = True
+            ):
+        self.default_top_k = top_k
+        self.default_doc_types = doc_types
+        self.default_block_types = block_types
+        self.default_score = score
+        self.default_open_url = open_url
+        
+    def __call__(
+            self, 
+            query, 
+            top_k = None, 
+            doc_types = None, 
+            block_types = None, 
+            score = None, 
+            open_url = None
+            ):
+        args_dict = {}
+
+        if top_k is None:
+            top_k = self.default_top_k
+        if top_k is not None:
+            args_dict["top_k"] = top_k
+        
+        if doc_types is None:
+            doc_types = self.default_doc_types
+        if doc_types is not None:
+            args_dict["doc_types"] = doc_types
+
+        if block_types is None:
+            block_types = self.default_block_types
+        if block_types is not None:
+            args_dict["block_types"] = block_types
+
+        if score is None:
+            score = self.default_score
+        if score is not None:
+            args_dict["score"] = score
+
+        if open_url is None:
+            open_url = self.default_open_url
+        if open_url is not None:
+            args_dict["open_url"] = open_url
+
+        fiftyone_docs_search(query, **args_dict)
+
+    
