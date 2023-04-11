@@ -8,7 +8,7 @@ Common function declarations.
 import openai
 import os
 import qdrant_client as qc
-import qdrant_client.http.models as qmodels
+import qdrant_client.http.models as models
 
 DOC_TYPES = (
     "cheat_sheets", 
@@ -32,10 +32,14 @@ BLOCK_TYPES = (
 MODEL = "text-embedding-ada-002"
 
 CLIENT = qc.QdrantClient(url="localhost")
-METRIC = qmodels.Distance.DOT
+METRIC = models.Distance.DOT
 DIMENSION = 1536
 
 DEFAULT_COLLECTION_NAME = "fiftyone_docs"
+
+HOME = os.path.expanduser("~")
+FIFTYONE_DOCS_INDEX_FILE = f"{HOME}/.fiftyone_docs_search/fiftyone_docs_index.json"
+
 
 BASE_DOCS_URL = "https://docs.voxel51.com/"
 

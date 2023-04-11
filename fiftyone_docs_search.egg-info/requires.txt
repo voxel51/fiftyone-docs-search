@@ -1,4 +1,6 @@
 argcomplete
+boto3
+botocore
 markdownify
 openai
 packaging

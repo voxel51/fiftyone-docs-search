@@ -4,9 +4,10 @@ Index creating and loading function declarations.
 | `voxel51.com <https://voxel51.com/>`_
 |
 """
-
+from google.cloud import storage
 import json
-import qdrant_client.http.models as qmodels
+import os
+import qdrant_client.http.models as models
 from tqdm import tqdm
 import uuid
 
@@ -35,7 +36,7 @@ def initialize_index():
 
     CLIENT.recreate_collection(
     collection_name=collection_name,
-    vectors_config = qmodels.VectorParams(
+    vectors_config = models.VectorParams(
             size=DIMENSION,
             distance=METRIC,
         )
@@ -45,7 +46,7 @@ def add_vectors_to_index(ids, vectors, payloads):
     collection_name = get_collection_name()
     CLIENT.upsert(
         collection_name=collection_name,
-        points=qmodels.Batch(
+        points=models.Batch(
             ids = ids,
             vectors=vectors,
             payloads=payloads
@@ -210,14 +211,15 @@ def save_index_to_json(
 ################################################################
 
 def load_index_from_json(
-        docs_index_file = "fiftyone_docs_index.json", 
         batch_size = 500
     ):
     
     initialize_index()
-
-    with open(docs_index_file, "r") as f:
+    tmp_index_file = "fiftyone_docs_index.json"
+    os.system(f"cp {FIFTYONE_DOCS_INDEX_FILE} {tmp_index_file}")
+    with open(tmp_index_file, "r") as f:
         docs_index = json.load(f)
+    os.system(f"rm {tmp_index_file}")
 
     ids = []
     vectors = []
@@ -249,4 +251,15 @@ def load_index_from_json(
 
     print("Index created successfully!")
 
+################################################################
 
+def download_index():
+    print("Downloading index JSON from Google Drive...")
+    storage_client = storage.Client.create_anonymous_client()
+    bucket = storage_client.bucket("fiftyone-docs-search")
+    blob = bucket.blob("fiftyone_docs_index.json")
+    
+    tmp_file = "fiftyone_docs_index.json"
+    blob.download_to_filename(tmp_file)
+    os.system("mkdir -p ~/.fiftyone_docs_search")
+    os.system(f"mv {tmp_file} {FIFTYONE_DOCS_INDEX_FILE}")

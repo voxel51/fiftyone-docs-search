@@ -26,3 +26,6 @@ Classifier: Programming Language :: Python :: 3.10
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 License-File: LICENSE
+
+# fiftyone-docs-search
+Search docs.voxel51.com with an LLM!

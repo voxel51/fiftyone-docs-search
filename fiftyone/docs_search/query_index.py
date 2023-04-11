@@ -4,11 +4,14 @@ Index querying function declaration.
 | `voxel51.com <https://voxel51.com/>`_
 |
 """
+
+import os
 import qdrant_client as qc
-import qdrant_client.http.models as qmodels
+import qdrant_client.http.models as models
 from rich import print
 import webbrowser
 
+from fiftyone.docs_search.create_index import download_index, load_index_from_json
 from fiftyone.docs_search.common import *
 
 ################################################################
@@ -30,12 +33,25 @@ def parse_block_types(block_types):
 
 ################################################################
 
+def collection_exists(collection_name):
+    collections = CLIENT.get_collections().collections
+    collection_names = [collection.name for collection in collections]
+    return collection_name in collection_names
+
 def query_index(query, top_k=10, doc_types=None, block_types=None):
     collection_name = get_collection_name()
 
+    if not collection_exists(collection_name):
+        print(f"Collection {collection_name} does not exist. Creating...")
+        if not os.path.exists(FIFTYONE_DOCS_INDEX_FILE):
+            print(f"Index JSON file {FIFTYONE_DOCS_INDEX_FILE} does not exist.")
+            download_index()
+        load_index_from_json()
+
+
     vector = embed_text(query)
 
-    _search_params = qmodels.SearchParams(
+    _search_params = models.SearchParams(
         hnsw_ef=128,
         exact=False
     )
@@ -43,46 +59,29 @@ def query_index(query, top_k=10, doc_types=None, block_types=None):
     doc_types = parse_doc_types(doc_types)
     block_types = parse_block_types(block_types)
 
-    _filter = qmodels.Filter(
+    _filter = models.Filter(
         must=[
-            qmodels.Filter(
+            models.Filter(
                 should= [
-                    qmodels.FieldCondition(
+                    models.FieldCondition(
                         key="doc_type",
-                        match=qmodels.MatchValue(value=dt),
+                        match=models.MatchValue(value=dt),
                     )
                 for dt in doc_types
                 ],
         
             ),
-            qmodels.Filter(
+            models.Filter(
                 should= [
-                    qmodels.FieldCondition(
+                    models.FieldCondition(
                         key="block_type",
-                        match=qmodels.MatchValue(value=bt),
+                        match=models.MatchValue(value=bt),
                     )
                 for bt in block_types
                 ]  
             )
         ]
     )
-
-
-        #     should= [
-        #         qmodels.FieldCondition(
-        #             key="doc_type",
-        #             match=qmodels.MatchValue(value=dt),
-        #         )
-        #     for dt in doc_types
-        #     ],
-        #     should= [
-        #         qmodels.FieldCondition(
-        #             key="block_type",
-        #             match=qmodels.MatchValue(value=bt),
-        #         )
-        #     for bt in block_types
-        #     ]  
-        # )
 
     results = CLIENT.search(
         collection_name=collection_name,
