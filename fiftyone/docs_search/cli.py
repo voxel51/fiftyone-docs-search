@@ -181,7 +181,7 @@ class QueryIndexCommand(Command):
             metavar="OPEN_URL",
             default=True,
             type=str2bool,
-            help="open the first result in a web browser",
+            help="whether to open the first result in a web browser",
         )
 
         parser.add_argument(
