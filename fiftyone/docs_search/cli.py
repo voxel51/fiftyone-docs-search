@@ -138,13 +138,22 @@ class LoadIndexCommand(Command):
     def execute(parser, args):
         dsci.load_index_from_json(docs_index_file = args.in_path)
 
-
+def str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+    
 class QueryIndexCommand(Command):
     """Queries the vector index for the docs.
     
     Examples::
 
-        fiftyone-docs-search "What is FiftyOne?" -n 10
+        fiftyone-docs-search query "What is FiftyOne?" -n 10
     
     """
 
@@ -171,7 +180,8 @@ class QueryIndexCommand(Command):
             "--open_url",
             metavar="OPEN_URL",
             default=True,
-            help="whether to open the first result in a web browser",
+            type=str2bool,
+            help="open the first result in a web browser",
         )
 
         parser.add_argument(
@@ -179,6 +189,7 @@ class QueryIndexCommand(Command):
             "--score",
             metavar="SCORE",
             default=False,
+            type=str2bool,
             help="whether to print the score of each result",
         )
 
