@@ -1,4 +1,4 @@
-# fiftyone-docs-search
+# Search the FiftyOne Docs with `fiftyone-docs-search`
 Search https://docs.voxel51.com with an LLM!
 
 !['fiftyone-docs-search-cli'](fiftyone/docs_search/images/cli_example.gif)
