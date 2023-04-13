@@ -41,7 +41,7 @@ and set up a Docker container with Qdrant running locally:
 
 ```shell
 docker pull qdrant/qdrant
-docker run -p 6333:6333 qdrant/qdrant
+docker run -d -p 6333:6333 qdrant/qdrant
 ```
 
 4. Install the `fiftyone-docs-search` package by `cd`ing into the repo and running:
