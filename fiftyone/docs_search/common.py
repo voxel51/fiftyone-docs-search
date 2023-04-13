@@ -38,8 +38,12 @@ DIMENSION = 1536
 DEFAULT_COLLECTION_NAME = "fiftyone_docs"
 
 HOME = os.path.expanduser("~")
-FIFTYONE_DOCS_INDEX_FILE = f"{HOME}/.fiftyone_docs_search/fiftyone_docs_index.json"
-
+FIFTYONE_DOCS_INDEX_FOLDER = os.path.join(HOME, ".fiftyone_docs_search")
+FIFTYONE_DOCS_INDEX_FILENAME = "fiftyone_docs_index.json"
+FIFTYONE_DOCS_INDEX_FILEPATH = os.path.join(
+    FIFTYONE_DOCS_INDEX_FOLDER, 
+    FIFTYONE_DOCS_INDEX_FILENAME
+    )
 
 BASE_DOCS_URL = "https://docs.voxel51.com/"
 

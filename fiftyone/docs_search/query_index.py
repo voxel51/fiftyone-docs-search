@@ -43,8 +43,8 @@ def query_index(query, top_k=10, doc_types=None, block_types=None):
 
     if not collection_exists(collection_name):
         print(f"Collection {collection_name} does not exist. Creating...")
-        if not os.path.exists(FIFTYONE_DOCS_INDEX_FILE):
-            print(f"Index JSON file {FIFTYONE_DOCS_INDEX_FILE} does not exist.")
+        if not os.path.exists(FIFTYONE_DOCS_INDEX_FILEPATH):
+            print(f"Index JSON file {FIFTYONE_DOCS_INDEX_FILEPATH} does not exist.")
             download_index()
         load_index_from_json()
 
