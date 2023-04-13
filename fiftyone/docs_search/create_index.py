@@ -8,6 +8,7 @@ from google.cloud import storage
 import json
 import os
 import qdrant_client.http.models as models
+import shutil
 from tqdm import tqdm
 import uuid
 
@@ -215,11 +216,11 @@ def load_index_from_json(
     ):
     
     initialize_index()
-    tmp_index_file = "fiftyone_docs_index.json"
-    os.system(f"cp {FIFTYONE_DOCS_INDEX_FILE} {tmp_index_file}")
+    tmp_index_file = FIFTYONE_DOCS_INDEX_FILENAME
+    shutil.copyfile(FIFTYONE_DOCS_INDEX_FILEPATH, tmp_index_file)
     with open(tmp_index_file, "r") as f:
         docs_index = json.load(f)
-    os.system(f"rm {tmp_index_file}")
+    os.remove(tmp_index_file)
 
     ids = []
     vectors = []
@@ -259,7 +260,10 @@ def download_index():
     bucket = storage_client.bucket("fiftyone-docs-search")
     blob = bucket.blob("fiftyone_docs_index.json")
     
-    tmp_file = "fiftyone_docs_index.json"
+    tmp_file = FIFTYONE_DOCS_INDEX_FILENAME
     blob.download_to_filename(tmp_file)
-    os.system("mkdir -p ~/.fiftyone_docs_search")
-    os.system(f"mv {tmp_file} {FIFTYONE_DOCS_INDEX_FILE}")
+
+    if not os.path.exists(FIFTYONE_DOCS_INDEX_FOLDER):
+        os.mkdir(FIFTYONE_DOCS_INDEX_FOLDER)
+
+    os.replace(tmp_file, FIFTYONE_DOCS_INDEX_FILEPATH)
