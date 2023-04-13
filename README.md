@@ -15,38 +15,38 @@ OpenAI's [text-embedding-ada-002 model](https://platform.openai.com/docs/guides/
 
 1. Clone the `fiftyone-docs-search` repo 
 
-```
+```shell
 git clone https://github.com/voxel51/fiftyone-docs-search
 ```
 
 2. Install [OpenAI's Python client](https://github.com/openai/openai-python) 
 
-```
+```shell
 pip install openai
 ```
 
  and [register an API key](https://platform.openai.com/account/api-keys). Once you have your API key, set the `OPENAI_API_KEY` environment variable to it:
 
-```
+```shell
 export OPENAI_API_KEY=<your key>
 ```
 
 3. Install the [Qdrant Python client](https://github.com/qdrant/qdrant-client): 
 
-```
+```shell
 pip install qdrant_client
 ```
 
 and set up a Docker container with Qdrant running locally:
 
-```
+```shell
 docker pull qdrant/qdrant
 docker run -p 6333:6333 qdrant/qdrant
 ```
 
 4. Install the `fiftyone-docs-search` package by `cd`ing into the repo and running:
 
-```
+```shell
 pip install -e .
 ```
 
@@ -57,13 +57,13 @@ pip install -e .
 The `fiftyone-docs-search` package provides a command line interface for
 searching the Voxel51 documentation. To use it, run:
 
-```
+```shell
 fiftyone-docs-search query <query>
 ```
 
 where `<query>` is the search query. For example:
 
-```
+```shell
 fiftyone-docs-search query "how to load a dataset"
 ```
 
@@ -76,8 +76,16 @@ The following flags can con give you control over search behavior:
 
 You can also use the `--help` flag to see all available options:
 
-```
+```shell
 fiftyone-docs-search --help
+```
+
+#### Aliasing the command
+
+If you find `fiftyone-docs-search query` cumbersome, you can alias the command, by adding the following to your `~/.bashrc` or `~/.zshrc` file:
+
+```
+alias fosearch='fiftyone-docs-search query'
 ```
 
 ### Python
@@ -116,6 +124,8 @@ Voxel51 FiftyOne documentation that it is searching. For example, the `v0.20.1`
 version of the `fiftyone-docs-search` package is designed to search the
 `v0.20.1` version of the Voxel51 FiftyOne documentation.
 
+## Building the index from scratch
+
 By default, if you do not have a Qdrant collection instantiated yet, when you 
 run a search, the `fiftyone-docs-search` package will automatically download
 a JSON file containing a vector indexing of the latest version of the Voxel51
@@ -125,7 +135,7 @@ If you would like, you can also build the index yourself from a local copy of
 the Voxel51 FiftyOne documentation. To do so, first clone the FiftyOne repo if 
 you haven't already:
 
-```
+```shell
 git clone https://github.com/voxel51/fiftyone
 ```
 
@@ -134,14 +144,26 @@ and install FiftyOne, as described in the detailed installation instructions
 
 Build a local version of the docs by running:
 
-```
+```shell
 bash docs/generate_docs.bash
 ```
 
-Then run the following command to build the index:
+Then, set a `FIFTYONE_DIR` environment variable to the path to the local FiftyOne repo. For example, if you cloned the repo to `~/fiftyone`, you would run:
 
-```bash
+```shell
+export FIFTYONE_DIR=~/fiftyone
+```
+
+Finally, run the following command to build the index:
+
+```shell
 fiftyone-docs-search create
+```
+
+If you would like to save the Qdrant index to JSON, you can run:
+
+```shell
+fiftyone-docs-search save -o <path to JSON file>
 ```
 
 
