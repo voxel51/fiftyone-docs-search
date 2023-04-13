@@ -13,10 +13,12 @@ import re
 
 ################################################################
 
-FO_DIR = os.getenv('FIFTYONE_DIR')
-FO_HTML_DOCS_DIR = os.path.join(FO_DIR, 'docs/build/html')
+
 
 def get_docs_list():
+    FO_DIR = os.getenv('FIFTYONE_DIR')
+    FO_HTML_DOCS_DIR = os.path.join(FO_DIR, 'docs/build/html')
+    
     all_docs = []
     for pattern in ['*/*.html', '*/*/*.html']:
         all_docs += glob(os.path.join(FO_HTML_DOCS_DIR, pattern), recursive=True)

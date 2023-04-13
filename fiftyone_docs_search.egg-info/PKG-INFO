@@ -30,6 +30,9 @@ License-File: LICENSE
 # fiftyone-docs-search
 Search https://docs.voxel51.com with an LLM!
 
+!['fiftyone-docs-search-cli'](fiftyone/docs_search/images/cli_example.gif)
+
+
 ## Overview
 
 This repo contains the code to enable semantic search on the 
@@ -93,8 +96,6 @@ where `<query>` is the search query. For example:
 fiftyone-docs-search query "how to load a dataset"
 ```
 
-INSERT GIF HERE
-
 The following flags can con give you control over search behavior:
 - `--num_results`: the number of results returned
 - `--open_url`: whether to open the top result in your browser
@@ -110,13 +111,71 @@ fiftyone-docs-search --help
 
 ### Python
 
+!['fiftyone-docs-search-python'](fiftyone/docs_search/images/python_example.gif)
+
 The `fiftyone-docs-search` package also provides a Python API for searching the
 Voxel51 documentation. To use it, run:
 
 ```py
-from fiftyone_docs_search import FiftyOneDocsSearch
+from fiftyone.docs_search import FiftyOneDocsSearch
 
 fods = FiftyOneDocsSearch()
-results = fods.search("how to load a dataset")
+results = fods("how to load a dataset")
 ```
+
+You can set defaults for the search behavior by passing arguments to the
+constructor:
+
+```py
+fods = FiftyOneDocsSearch(
+    num_results=5,
+    open_url=True,
+    score=True,
+    doc_types=["tutorials", "api", "guides"],
+    block_types=["code", "text"],
+)
+```
+
+For any individual search, you can override these defaults by passing arguments.
+
+## Versioning of the docs
+
+The `fiftyone-docs-search` package is versioned to match the version of the
+Voxel51 FiftyOne documentation that it is searching. For example, the `v0.20.1`
+version of the `fiftyone-docs-search` package is designed to search the
+`v0.20.1` version of the Voxel51 FiftyOne documentation.
+
+By default, if you do not have a Qdrant collection instantiated yet, when you 
+run a search, the `fiftyone-docs-search` package will automatically download
+a JSON file containing a vector indexing of the latest version of the Voxel51
+FiftyOne documentation.
+
+If you would like, you can also build the index yourself from a local copy of
+the Voxel51 FiftyOne documentation. To do so, first clone the FiftyOne repo if 
+you haven't already:
+
+```
+git clone https://github.com/voxel51/fiftyone
+```
+
+and install FiftyOne, as described in the detailed installation instructions 
+[here](https://github.com/voxel51/fiftyone#installation-1).
+
+Build a local version of the docs by running:
+
+```
+bash docs/generate_docs.bash
+```
+
+Then run the following command to build the index:
+
+```bash
+fiftyone-docs-search create
+```
+
+
+## Contributing
+
+We welcome contributions to this repo!
+
 
