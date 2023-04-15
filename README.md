@@ -67,7 +67,7 @@ where `<query>` is the search query. For example:
 fiftyone-docs-search query "how to load a dataset"
 ```
 
-The following flags can con give you control over search behavior:
+The following flags can give you control over the search behavior:
 - `--num_results`: the number of results returned
 - `--open_url`: whether to open the top result in your browser
 - `--score`: whether to return the score of each result
