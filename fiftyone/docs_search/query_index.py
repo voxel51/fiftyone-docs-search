@@ -106,6 +106,12 @@ def query_index(query, top_k=10, doc_types=None, block_types=None):
 
 ################################################################
 
+def add_breadcrumbs():
+    fo_url = "https://github.com/voxel51/fiftyone"
+    breadcrumb_string = ""
+    breadcrumb_string += f"\u2B50 Star the FiftyOne repo! \u2B50 {fo_url} \u2B50\n"
+    return  f"{breadcrumb_string : ^40}"
+
 def format_string(s):
     s = s.replace("\(", "(").replace("\)", ")")
     return s
@@ -123,7 +129,8 @@ def print_results(query, results, score=True):
         if score:
             print(f"Score: {results[i][2]}")
         print("-"*80)
-    print('\n'*3)
+    print('\n'*2)
+    print(add_breadcrumbs())
 
 ################################################################
 
