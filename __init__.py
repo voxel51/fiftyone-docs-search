@@ -7,8 +7,8 @@ from fiftyone.docs_search.query_index import query_index
 class SearchDocs(foo.DynamicOperator):
   def __init__(self):
     super().__init__(
-      "search-docs",
-      "Searches the FiftyOne docs",
+      "@voxel51/search-docs",
+      "Search the FiftyOne docs",
     )
   
   def resolve_input(self, ctx):
