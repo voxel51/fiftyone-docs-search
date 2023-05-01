@@ -158,3 +158,7 @@ fiftyone-docs-search save -o <path to JSON file>
 ## Contributing
 
 We welcome contributions to this repo!
+
+## Main repo
+
+If you've made it this far, we'd greatly appreciate if you'd take a moment to check out our main repo, [FiftyOne](https://github.com/voxel51/fiftyone), and give that project a star. Thanks so much!
