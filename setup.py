@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Installs FiftyOne.
+Installs FiftyOne Docs Search.
 | Copyright 2017-2023, Voxel51, Inc.
 | `voxel51.com <https://voxel51.com/>`_
 |
