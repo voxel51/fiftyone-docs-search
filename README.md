@@ -1,37 +1,35 @@
-# Search the FiftyOne Docs with `fiftyone-docs-search`
+# Search the FiftyOne Docs with an LLM
 
-Search https://docs.voxel51.com with an LLM!
-
-!['fiftyone-docs-search-cli'](fiftyone/docs_search/images/cli_example.gif)
-
-## Overview
-
-This repo contains the code to enable semantic search on the
+This repository contains the code to enable semantic search on the
 [Voxel51 documentation](https://docs.voxel51.com) from Python or the command
 line. The search is powered by [FiftyOne](https://github.com/voxel51/fiftyone),
 OpenAI's [text-embedding-ada-002 model](https://platform.openai.com/docs/guides/embeddings), and [Qdrant vector search](https://qdrant.tech/).
 
+!['fiftyone-docs-search-cli'](fiftyone/docs_search/images/cli_example.gif)
+
 ## Installation
 
-1. Clone the `fiftyone-docs-search` repo
+1. Clone the repository:
 
 ```shell
 git clone https://github.com/voxel51/fiftyone-docs-search
+cd fiftyone-docs-search
 ```
 
-2. Install the `fiftyone-docs-search` package by `cd`ing into the repo and running:
+2. Install the package:
 
 ```shell
 pip install -e .
 ```
 
-3. [register an API key](https://platform.openai.com/account/api-keys). Once you have your API key, set the `OPENAI_API_KEY` environment variable to it:
+3. Register your OpenAI API key
+   ([create one](https://platform.openai.com/account/api-keys)):
 
 ```shell
-export OPENAI_API_KEY=<your key>
+export OPENAI_API_KEY=XXXXXXXX
 ```
 
-1. set up a Docker container with Qdrant running locally:
+4. Launch a Qdrant server:
 
 ```shell
 docker pull qdrant/qdrant
@@ -106,7 +104,7 @@ fods = FiftyOneDocsSearch(
 
 For any individual search, you can override these defaults by passing arguments.
 
-## Versioning of the docs
+## Versioning
 
 The `fiftyone-docs-search` package is versioned to match the version of the
 Voxel51 FiftyOne documentation that it is searching. For example, the `v0.20.1`
@@ -137,7 +135,9 @@ Build a local version of the docs by running:
 bash docs/generate_docs.bash
 ```
 
-Then, set a `FIFTYONE_DIR` environment variable to the path to the local FiftyOne repo. For example, if you cloned the repo to `~/fiftyone`, you would run:
+Then, set a `FIFTYONE_DIR` environment variable to the path to the local
+FiftyOne repo. For example, if you cloned the repo to `~/fiftyone`, you would
+run:
 
 ```shell
 export FIFTYONE_DIR=~/fiftyone
@@ -157,8 +157,20 @@ fiftyone-docs-search save -o <path to JSON file>
 
 ## Contributing
 
-We welcome contributions to this repo!
+Contributions are welcome!
 
-## Main repo
+## About FiftyOne
 
-If you've made it this far, we'd greatly appreciate if you'd take a moment to check out our main repo, [FiftyOne](https://github.com/voxel51/fiftyone), and give that project a star. Thanks so much!
+If you've made it this far, we'd greatly appreciate if you'd take a moment to
+check out [FiftyOne](https://github.com/voxel51/fiftyone) and give us a star!
+
+FiftyOne is an open source library for building high-quality datasets and
+computer vision models. It's the engine that powers this project.
+
+Thanks for visiting! 😊
+
+## Join the Community
+
+If you want join a fast-growing community of engineers, researchers, and
+practitioners who love computer vision, join the
+[FiftyOne Slack community](https://slack.voxel51.com/)! 🚀🚀🚀
