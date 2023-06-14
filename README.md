@@ -7,6 +7,13 @@ OpenAI's [text-embedding-ada-002 model](https://platform.openai.com/docs/guides/
 
 !['fiftyone-docs-search-cli'](fiftyone/docs_search/images/cli_example.gif)
 
+## Updates
+
+- **2021-06-14**: The `fiftyone-docs-search` package has been updated in the following ways:
+  - [FiftyOne Documentation](https://voxel51.com/docs/fiftyone) embeddings have been updated to FiftyOne 0.21.0.
+  - Splitting of documents is simplified and more robust. LangChain splitters are used in conjunction with our custom Markdown parsing.
+  - The `block_type` argument has been removed to make search results more robust.
+
 ## Installation
 
 1. Clone the repository:
@@ -59,7 +66,6 @@ The following flags can give you control over the search behavior:
 - `--open_url`: whether to open the top result in your browser
 - `--score`: whether to return the score of each result
 - `--doc_types`: the types of docs to search over (e.g., "tutorials", "api", "guides")
-- `--block_types`: the types of blocks to search over (e.g., "code", "text")
 
 You can also use the `--help` flag to see all available options:
 
@@ -98,7 +104,6 @@ fods = FiftyOneDocsSearch(
     open_url=True,
     score=True,
     doc_types=["tutorials", "api", "guides"],
-    block_types=["code", "text"],
 )
 ```
 

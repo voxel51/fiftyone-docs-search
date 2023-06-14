@@ -20,13 +20,13 @@ INSTALL_REQUIRES = [
     "setuptools",
     "tqdm",
 ]
-  
+
 with open("README.md", "r") as fh:
     description = fh.read()
-  
+
 setup(
     name="fiftyone-docs-search",
-    version="0.20.1",
+    version="0.21.0",
     author="Voxel51, Inc.",
     author_email="info@voxel51.com",
     packages=find_packages(),
@@ -34,8 +34,8 @@ setup(
     long_description=description,
     long_description_content_type="text/markdown",
     url="https://github.com/voxel51/fiftyone-docs-search",
-    license='Apache',
-    python_requires='>=3.8',
+    license="Apache",
+    python_requires=">=3.8",
     install_requires=INSTALL_REQUIRES,
     include_package_data=True,
     classifiers=[
@@ -57,5 +57,9 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
     ],
-    entry_points={"console_scripts": ["fiftyone-docs-search=fiftyone.docs_search.cli:main"]},
+    entry_points={
+        "console_scripts": [
+            "fiftyone-docs-search=fiftyone.docs_search.cli:main"
+        ]
+    },
 )
