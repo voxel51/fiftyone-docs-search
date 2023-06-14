@@ -10,6 +10,7 @@ from setuptools import setup, find_packages
 INSTALL_REQUIRES = [
     "argcomplete",
     "google-cloud-storage",
+    "langchain",
     "markdownify",
     "openai",
     "packaging",
