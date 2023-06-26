@@ -158,7 +158,7 @@ class QueryIndexCommand(Command):
 
     Examples::
 
-        fiftyone-docs-search query "What is FiftyOne?" -n 10
+        fiftyone-docs-search query "How do I load a dataset in FiftyOne?" -n 10
 
     """
 
@@ -168,7 +168,7 @@ class QueryIndexCommand(Command):
             "query",
             metavar="QUERY",
             nargs="?",
-            default="What is FiftyOne?",
+            default="How do I load a dataset in FiftyOne?",
             help="the query string to search for",
         )
 
