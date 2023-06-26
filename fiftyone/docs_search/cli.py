@@ -122,7 +122,7 @@ class LoadIndexCommand(Command):
 
     Examples::
 
-        fo-search load -i my_index.json
+        fiftyone-docs-search load -i my_index.json
 
     """
 
@@ -291,7 +291,7 @@ def _register_command(parent, name, command, recursive_help=True):
     return parser
 
 
-__version__ = "0.20.1"
+__version__ = "0.21.0"
 
 
 def main():

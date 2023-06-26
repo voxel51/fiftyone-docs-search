@@ -207,10 +207,14 @@ def save_index_to_json(
 ################################################################
 
 
-def load_index_from_json(batch_size=500):
+def load_index_from_json(docs_index_file=None, batch_size=500):
 
     initialize_index()
-    tmp_index_file = FIFTYONE_DOCS_INDEX_FILENAME
+    tmp_index_file = (
+        docs_index_file
+        if docs_index_file is not None
+        else FIFTYONE_DOCS_INDEX_FILENAME
+    )
     shutil.copyfile(FIFTYONE_DOCS_INDEX_FILEPATH, tmp_index_file)
     with open(tmp_index_file, "r") as f:
         docs_index = json.load(f)
