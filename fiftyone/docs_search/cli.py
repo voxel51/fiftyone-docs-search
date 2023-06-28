@@ -15,6 +15,7 @@ import fiftyone.docs_search.query_index as dsqi
 
 ################################################################
 
+
 class Command(object):
     """Interface for defining commands.
     Command instances must implement the `setup()` method, and they should
@@ -56,13 +57,14 @@ class FiftyOneDocsSearchCommand(Command):
     def execute(parser, args):
         parser.print_help()
 
+
 class CreateIndexCommand(Command):
     """Creates the vector index for the docs.
-    
+
     Examples::
 
         fiftyone-docs-search create --name my_name
-    
+
     """
 
     @staticmethod
@@ -83,11 +85,11 @@ class CreateIndexCommand(Command):
 
 class SaveIndexCommand(Command):
     """Saves the vector index for the docs.
-    
+
     Examples::
 
         fiftyone-docs-search save -o my_index.json -b 100
-    
+
     """
 
     @staticmethod
@@ -111,17 +113,17 @@ class SaveIndexCommand(Command):
     @staticmethod
     def execute(parser, args):
         dsci.save_index_to_json(
-            docs_index_file = args.out_path, 
-            batch_size = args.batch_size)
+            docs_index_file=args.out_path, batch_size=args.batch_size
+        )
 
 
 class LoadIndexCommand(Command):
     """Loads the vector index for the docs from JSON.
-    
+
     Examples::
 
-        fo-search load -i my_index.json
-    
+        fiftyone-docs-search load -i my_index.json
+
     """
 
     @staticmethod
@@ -134,27 +136,30 @@ class LoadIndexCommand(Command):
             help="the name of the JSON file to load the index from",
         )
 
+    # pylint: disable=unexpected-keyword-arg
     @staticmethod
     def execute(parser, args):
-        dsci.load_index_from_json(docs_index_file = args.in_path)
+        dsci.load_index_from_json(docs_index_file=args.in_path)
+
 
 def str2bool(v):
     if isinstance(v, bool):
         return v
-    if v.lower() in ('yes', 'true', 't', 'y', '1'):
+    if v.lower() in ("yes", "true", "t", "y", "1"):
         return True
-    elif v.lower() in ('no', 'false', 'f', 'n', '0'):
+    elif v.lower() in ("no", "false", "f", "n", "0"):
         return False
     else:
-        raise argparse.ArgumentTypeError('Boolean value expected.')
-    
+        raise argparse.ArgumentTypeError("Boolean value expected.")
+
+
 class QueryIndexCommand(Command):
     """Queries the vector index for the docs.
-    
+
     Examples::
 
-        fiftyone-docs-search query "What is FiftyOne?" -n 10
-    
+        fiftyone-docs-search query "How do I load a dataset in FiftyOne?" -n 10
+
     """
 
     @staticmethod
@@ -163,7 +168,7 @@ class QueryIndexCommand(Command):
             "query",
             metavar="QUERY",
             nargs="?",
-            default="What is FiftyOne?",
+            default="How do I load a dataset in FiftyOne?",
             help="the query string to search for",
         )
 
@@ -201,27 +206,15 @@ class QueryIndexCommand(Command):
             help="the types of docs to search through",
         )
 
-        parser.add_argument(
-            "-b",
-            "--block_types",
-            metavar="BLOCK_TYPES",
-            default=None,
-            help="the types of blocks to search through",
-        )
-
-
     @staticmethod
     def execute(parser, args):
         dsqi.fiftyone_docs_search(
-            args.query, 
-            top_k = args.num_results,
-            open_url = args.open_url,
-            score = args.score,
-            doc_types = args.doc_types,
-            block_types = args.block_types
+            args.query,
+            top_k=args.num_results,
+            open_url=args.open_url,
+            score=args.score,
+            doc_types=args.doc_types,
         )
-
-        
 
 
 def _has_subparsers(parser):
@@ -251,7 +244,6 @@ class _RecursiveHelpAction(argparse._HelpAction):
             _RecursiveHelpAction._recurse(subparser)
 
 
-
 def _register_main_command(command, version=None, recursive_help=True):
     parser = argparse.ArgumentParser(description=command.__doc__.rstrip())
 
@@ -277,6 +269,7 @@ def _register_main_command(command, version=None, recursive_help=True):
     argcomplete.autocomplete(parser)
     return parser
 
+
 def _register_command(parent, name, command, recursive_help=True):
     parser = parent.add_parser(
         name,
@@ -297,13 +290,15 @@ def _register_command(parent, name, command, recursive_help=True):
 
     return parser
 
-__version__ = "0.20.1"
+
+__version__ = "0.21.0"
+
 
 def main():
     """Executes the `fiftyone-docs-search` tool with the given command-line args."""
     parser = _register_main_command(
-        FiftyOneDocsSearchCommand, 
-        version="FiftyOneDocsSearch v%s" % __version__
-        )
+        FiftyOneDocsSearchCommand,
+        version="FiftyOneDocsSearch v%s" % __version__,
+    )
     args = parser.parse_args()
     args.execute(args)
