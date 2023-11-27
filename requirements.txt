@@ -1,7 +1,7 @@
 argcomplete==1.11.0
 google-cloud-storage>=2.8.0
 markdownify>=0.11.6
-openai>=0.27.2
+openai>=0.27.2,<1.0.0
 qdrant-client>=1.1.1
 packaging==20.3
 regex>=2022.8.17
