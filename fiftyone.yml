@@ -1,0 +1,6 @@
+fiftyone:
+  version: ~0.21.0
+name: '@voxel51/fiftyone-docs-search'
+operators:
+  - name: '@voxel51/search-docs'
+    description: Search https://docs.voxel51.com with an LLM!
